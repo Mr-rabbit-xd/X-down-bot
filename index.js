@@ -1,7 +1,7 @@
 const { Telegraf } = require("telegraf");
 const axios = require("axios");
 
-const bot = new Telegraf("YOUR_BOT_TOKEN"); // <-- এখানে তোমার BotFather-এর token বসাও
+const bot = new Telegraf("8019207243:AAGzrJIPzPcIc3S_YBvRK1W_JjtcVHjTDE4"); // <-- এখানে তোমার BotFather-এর token বসাও
 
 bot.start((ctx) => {
   ctx.reply("👋 Welcome to Insta Downloader Bot by MR-RABBIT.\nJust send an Instagram video link.");
@@ -14,7 +14,7 @@ bot.on("text", async (ctx) => {
   ctx.reply("⏳ Downloading...");
 
   try {
-    const res = await axios.get(`https://your-vercel-app.vercel.app/api/in?url=${encodeURIComponent(url)}`);
+    const res = await axios.get(`https://rabbit-api-test.vercel.app/api/xvideo?url=${encodeURIComponent(url)}`);
     const data = res.data;
 
     if (!data.status) return ctx.reply("🚫 Failed to download the video.");
