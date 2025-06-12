@@ -1,17 +1,17 @@
 const { Telegraf } = require("telegraf");
 const axios = require("axios");
 
-const bot = new Telegraf("8019207243:AAGzrJIPzPcIc3S_YBvRK1W_JjtcVHjTDE4"); // <-- এখানে তোমার BotFather-এর token বসাও
+const bot = new Telegraf(process.env.BOT_TOKEN); // TOKEN koyeb env এ দিবা
 
 bot.start((ctx) => {
-  ctx.reply("👋 Welcome to X video Downloader Bot by MR-RABBIT.\nJust send an Instagram video link.");
+  ctx.reply("👋 Welcome to X Video Downloader Bot by MR-RABBIT.\n\n📥 Just send an X video link.");
 });
 
 bot.on("text", async (ctx) => {
   const url = ctx.message.text;
-  if (!url.includes("xvideos.com")) return ctx.reply("❌ Send a valid Instagram link.");
+  if (!url.includes("instagram.com")) return ctx.reply("❌ Please send a valid Instagram link.");
 
-  ctx.reply("⏳ Downloading...");
+  ctx.reply("⏳ Fetching video...");
 
   try {
     const res = await axios.get(`https://rabbit-api-test.vercel.app/api/xvideo?url=${encodeURIComponent(url)}`);
@@ -19,14 +19,14 @@ bot.on("text", async (ctx) => {
 
     if (!data.status) return ctx.reply("🚫 Failed to download the video.");
 
-    const { title, views, image, dl_link } = data.result;
+    const { title, views, dl_link } = data.result;
 
-    await ctx.replyWithPhoto(image, {
-      caption: `🎬 ${title}\n👁️ ${views}\n⬇️ Download: ${dl_link}`
+    await ctx.replyWithVideo(dl_link, {
+      caption: `🎬 ${title}\n👁️ ${views}\n\nBy: MR-RABBIT`
     });
-  } catch (e) {
-    console.error(e.message);
-    ctx.reply("⚠️ Error fetching video.");
+  } catch (err) {
+    console.error(err.message);
+    ctx.reply("⚠️ Something went wrong.");
   }
 });
 
