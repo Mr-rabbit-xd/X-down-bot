@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Insta Video Downloader - MR RABBIT</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; background: #111; color: #fff; padding: 2rem; }
+    input, button { padding: 10px; margin: 10px; width: 90%; max-width: 400px; }
+    .result { background: #222; padding: 20px; margin-top: 20px; border-radius: 10px; }
+    a { color: #00ff88; text-decoration: none; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>📥 Instagram Downloader</h1>
+  <p>Powered by MR RABBIT</p>
+  <input type="text" id="url" placeholder="Paste Instagram link..." />
+  <button onclick="download()">Download</button>
+
+  <div class="result" id="result" style="display:none;">
+    <h2 id="title"></h2>
+    <p id="views"></p>
+    <img id="thumb" width="300" />
+    <br/><br/>
+    <a id="dl" target="_blank">⬇️ Download Video</a>
+  </div>
+
+  <script>
+    async function download() {
+      const url = document.getElementById("url").value;
+      const res = await fetch(`https://your-vercel-api.vercel.app/api/in?url=${encodeURIComponent(url)}`);
+      const data = await res.json();
+      if (!data.status) return alert("❌ Failed to fetch video!");
+
+      document.getElementById("title").innerText = data.result.title;
+      document.getElementById("views").innerText = data.result.views;
+      document.getElementById("thumb").src = data.result.image;
+      document.getElementById("dl").href = data.result.dl_link;
+      document.getElementById("result").style.display = "block";
+    }
+  </script>
+</body>
+</html>
