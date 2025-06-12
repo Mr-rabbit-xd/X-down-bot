@@ -4,12 +4,12 @@ const axios = require("axios");
 const bot = new Telegraf("8019207243:AAGzrJIPzPcIc3S_YBvRK1W_JjtcVHjTDE4"); // <-- এখানে তোমার BotFather-এর token বসাও
 
 bot.start((ctx) => {
-  ctx.reply("👋 Welcome to Insta Downloader Bot by MR-RABBIT.\nJust send an Instagram video link.");
+  ctx.reply("👋 Welcome to X video Downloader Bot by MR-RABBIT.\nJust send an Instagram video link.");
 });
 
 bot.on("text", async (ctx) => {
   const url = ctx.message.text;
-  if (!url.includes("instagram.com")) return ctx.reply("❌ Send a valid Instagram link.");
+  if (!url.includes("xvideos.com")) return ctx.reply("❌ Send a valid Instagram link.");
 
   ctx.reply("⏳ Downloading...");
 
